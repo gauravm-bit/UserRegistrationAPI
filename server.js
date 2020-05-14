@@ -26,7 +26,7 @@ app.get('/',(req,res) => {
     res.json({"message":"Welcome to User Registration API"})
 })
 
-require('./app/routes/user.route.js')
+require('./app/routes/user.route.js')(apprand)
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000")
