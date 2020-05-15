@@ -3,12 +3,10 @@ const bodyParser = require('body-parser');
 
 const dbConfig = require('./app/config/database.config.js')
 const mongoose = require('mongoose');
-
 mongoose.Promise = global.Promise;
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}))
-
 app.use(bodyParser.json())
 
 // Connecting to the database
@@ -26,7 +24,7 @@ app.get('/',(req,res) => {
     res.json({"message":"Welcome to User Registration API"})
 })
 
-require('./app/routes/user.route.js')(apprand)
+require('./app/routes/user.route.js')(app)
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000")

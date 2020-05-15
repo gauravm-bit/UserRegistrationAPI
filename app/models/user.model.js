@@ -1,25 +1,25 @@
 const mongoose = require('mongoose');
-mongoose.connect
 const userSchema = mongoose.Schema({
-    _id:mongoose.Schema.Types.ObjectId,
-    username: {type:String,
-        required:true,
-        index:{
-            unique: true,
-        }},
+    username: {
+        type:String,
+        required:true
+    },
     email:{
         type:String,
-        required:true,
-        index: {
-            unique: true,
-        }},
+        required:true
+    },
     password:{
         type:String,
         required:true
     },
-    date:{
-        type:Date,
-        default:Date.now }
+    created_at: {
+        type: Date,
+        default: Date.now 
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now 
+    }
 })
 
 let userModel = mongoose.model('users',userSchema);

@@ -1,13 +1,13 @@
-const userModel = require('../models/user.model.js')
 let express = require("express")
 const mongoose = require("mongoose");
+const userModel = require('../models/user.model.js')
 
-exports.create = (req,res) => {
+exports.register = (req,res) => {
     let username = req.body.username;
     let email = req.body.email;
     let password = req.body.password;
-    let confirmPassword = req.body.confirmpassword;
-    if (password !== confirmPassword) {
+    let confirmpassword = req.body.confirmpassword;
+    if (password !== confirmpassword) {
         res.json({
           message: "Passwords do not match!",
         });
@@ -20,7 +20,7 @@ exports.create = (req,res) => {
             password: password,
           });
           
-          userDetails.save()
+          userDetails
           .save()
           .then((doc) => {
             res.status(201).json({
