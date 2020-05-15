@@ -14,7 +14,6 @@ exports.register = (req,res) => {
     }
     else{
         let userDetails = new userModel({
-            _id: mongoose.Types.ObjectId(),
             username: username,
             email: email,
             password: password,
@@ -32,4 +31,26 @@ exports.register = (req,res) => {
             res.json(err);
           });
     }
-} 
+}
+
+exports.login = (req,res) => {
+  userModel.findOne({email: req.body.email})
+  .exec()
+  .then(user => {
+      if(user == null) {
+          return res.json({
+              message: 'Login Failed'
+          });
+      }
+      if(user.username == req.body.username && user.password == req.body.password) {
+          return res.json({
+              message: 'Login Sucessfull'
+          });
+      }
+  })
+  .catch(err => {
+      res.send( {
+          message: err.message || "Invalid User"
+      });
+  });
+};
