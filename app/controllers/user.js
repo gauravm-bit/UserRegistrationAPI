@@ -1,6 +1,6 @@
 let express = require("express")
 const mongoose = require("mongoose");
-const userModel = require('../models/user.model.js')
+const userModel = require('../models/user.js')
 
 exports.register = (req,res) => {
     let username = req.body.username;

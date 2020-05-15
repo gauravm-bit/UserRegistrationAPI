@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const dbConfig = require('./app/config/database.config.js')
+const dbConfig = require('./app/config/database.js')
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
@@ -24,7 +24,7 @@ app.get('/',(req,res) => {
     res.json({"message":"Welcome to User Registration API"})
 })
 
-require('./app/routes/user.route.js')(app)
+require('./app/routes/user.js')(app)
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000")
