@@ -46,9 +46,9 @@ class Usermodel
     register(req,callback)
     {
         const user = new User({
-             username = req.username,
-             email = req.email,
-             password = req.password,
+             username:req.username,
+             email:req.email,
+             password:req.password,
 
         })
         user.save((err,result)=>
