@@ -1,56 +1,50 @@
-let express = require("express")
-const mongoose = require("mongoose");
-const userModel = require('../app/models/user.js')
+class Userconroller
+{
+ 
+  async register(req,res)
+  {
+    try
+    {
+      //express validator used
 
-exports.register = (req,res) => {
-    let username = req.body.username;
-    let email = req.body.email;
-    let password = req.body.password;
-    let confirmpassword = req.body.confirmpassword;
-    if (password !== confirmpassword) {
-        res.json({
-          message: "Passwords do not match!",
-        });
-    }
-    else{
-        let userDetails = new userModel({
-            username: username,
-            email: email,
-            password: password,
-          });
-          
-          userDetails
-          .save()
-          .then((doc) => {
-            res.status(201).json({
-              message: "User Registered Successfully",
-              results: doc,
-            });
-          })
-          .catch((err) => {
-            res.json(err);
-          });
-    }
+      req.check('username','Length of name should be min 3 characters').isLength({min: 3});
+      req.check('email','Invalid email').isEmail();
+      req.check('password','Invalid password').notEmpty().isLength({min:6})
+      const errors = await req.validationErrors();
+      if(errors)
+      {
+        return res.status(422).json({errors:errors})
+      }
+      
+  }
+  catch(error){
+    let response = {};
+    response.success = false;
+    response.data = error;
+    res.status(404).send(response);
+  }
 }
 
-exports.login = (req,res) => {
-  userModel.findOne({email: req.body.email})
-  .exec()
-  .then(user => {
-      if(user == null) {
-          return res.json({
-              message: 'Login Failed'
-          });
+  async login(req,res)
+  {
+    try
+    {
+      //express-validators is used for validation of input.
+      req.checkBody('email','Invalid email').notEmpty().isEmail();
+      req.checkBody('password','Invalid password').notEmpty().isLength({ min:6})
+      const errors = await req.validationErrors();
+      if(errors)
+      {
+        return res.status(422).json({errors:errors});
       }
-      if(user.username == req.body.username && user.password == req.body.password) {
-          return res.json({
-              message: 'Login Sucessfull'
-          });
-      }
-  })
-  .catch(err => {
-      res.send( {
-          message: err.message || "Invalid User"
-      });
-  });
-};
+    }
+    catch(error) 
+        {
+          let response = {};
+          response.success = false;
+          response.data = error;
+          res.status(404).send(response);
+        }    
+    }
+}
+module.exports = new Userconroller();
