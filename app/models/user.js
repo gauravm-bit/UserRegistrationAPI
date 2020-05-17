@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
     }
 })
 
-let userModel = mongoose.model('users',userSchema);
+const User = mongoose.model('users',userSchema);
 
 class Usermodel 
 {
@@ -46,9 +46,9 @@ class Usermodel
     register(req,callback)
     {
         const user = new User({
-             username = req.body.username,
-             email = req.body.email,
-             password = req.body.password,
+             username = req.username,
+             email = req.email,
+             password = req.password,
 
         })
         user.save((err,result)=>
@@ -76,4 +76,4 @@ class Usermodel
         callback(null,response)
     }
 }
-module.exports = userModel;
+module.exports = new Usermodel();
