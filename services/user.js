@@ -73,9 +73,6 @@ class Userservice
                         callback({message:"Wrong password entered"})
                     }
                 })
-                {
-
-                }
             })
             .catch(err=>
                 {

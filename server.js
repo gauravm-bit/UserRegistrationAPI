@@ -9,6 +9,7 @@ mongoose.Promise = global.Promise;
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+app.use(expressValidator())
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {

@@ -3,6 +3,6 @@ module.exports = (app) => {
 
     app.post('/register', user.register);
 
-    app.get('/login',user.login);
+    app.post('/login',user.login);
 
 }

@@ -69,8 +69,7 @@ class Usermodel
     {
         let response =
         {
-            username:req.body.username,
-            email:req.body.email,
+            email:req.email,
             message:'Success'
         }
         callback(null,response)

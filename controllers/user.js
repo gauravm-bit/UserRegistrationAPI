@@ -1,8 +1,12 @@
+const userService = require('../services/user')
+
 class Userconroller
 {
  
   async register(req,res)
   {
+    //console.log(req.body) 
+    // http request it is
     try
     {
       //express validator used
@@ -15,7 +19,14 @@ class Userconroller
       {
         return res.status(422).json({errors:errors})
       }
-      
+      userService.register(req.body)
+      .then(data => {
+      res.status(200).json(data)
+      })
+      .catch(err=>
+        {
+          res.status(422).json(err)
+        })
   }
   catch(error){
     let response = {};
@@ -37,6 +48,14 @@ class Userconroller
       {
         return res.status(422).json({errors:errors});
       }
+      userService.login(req.body,(err,result)=>{
+        if(err){ 
+          res.status(422).json(err)
+        }
+        else{
+          res.status(200).json(result)
+        }
+      })
     }
     catch(error) 
         {
